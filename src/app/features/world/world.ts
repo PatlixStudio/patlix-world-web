@@ -6,6 +6,7 @@ import {
   Inject,
   effect,
 } from '@angular/core';
+import * as THREE from 'three';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
 import { ApiService } from '../../core/api.service';
@@ -15,6 +16,7 @@ import type { WorldAdapter } from '../../core/world-adapter';
 import { WORLD_ADAPTER } from '../../core/world-adapter';
 import { ThreeWorldAdapter } from '../../three/three-world-adapter';
 import { RendererService } from '../../three/renderer.service';
+import { PlayerControllerService } from '../../three/player/player-controller.service';
 import { AgentList } from './agent-list/agent-list';
 import { Inspector } from './inspector/inspector';
 import { TaskPanel } from './task-panel/task-panel';
@@ -39,6 +41,7 @@ export class World implements OnInit {
     private readonly store: WorldStateStore,
     @Inject(WORLD_ADAPTER) private readonly adapter: WorldAdapter,
     private readonly renderer: RendererService,
+    private readonly player: PlayerControllerService,
     private readonly router: Router,
   ) {
     effect(() => {
@@ -63,6 +66,11 @@ export class World implements OnInit {
 
   ngAfterViewInit(): void {
     this.renderer.mount(this.viewport.nativeElement);
+    const beach = this.store
+      .zones()
+      .find((zone) => zone.kind === 'beach' || zone.id === 'beach');
+    const center = beach?.center ?? { x: 0, y: 0, z: 0 };
+    void this.player.spawn(new THREE.Vector3(center.x, 0, center.z));
   }
 
   get connected() {

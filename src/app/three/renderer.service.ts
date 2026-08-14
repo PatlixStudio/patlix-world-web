@@ -67,6 +67,19 @@ export class RendererService implements OnDestroy {
     if (idx >= 0) this.animationCallbacks.splice(idx, 1);
   }
 
+  /** The canvas element, once mounted. */
+  canvas(): HTMLCanvasElement {
+    if (!this.renderer) {
+      throw new Error('RendererService not mounted yet');
+    }
+    return this.renderer.domElement;
+  }
+
+  /** Enable/disable the debug orbit camera (disabled once the player spawns). */
+  enableCameraControl(enabled: boolean): void {
+    this.controls!.enabled = enabled;
+  }
+
   private readonly onResize = (): void => {
     if (!this.container || !this.renderer) return;
     const width = this.container.clientWidth;
