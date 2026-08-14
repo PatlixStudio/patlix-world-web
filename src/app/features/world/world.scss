@@ -100,6 +100,7 @@
 }
 
 .viewport {
+  position: relative;
   min-height: 0;
   border-radius: 12px;
   overflow: hidden;
@@ -107,6 +108,33 @@
   background:
     linear-gradient(rgba(30, 60, 90, 0.15), rgba(10, 20, 30, 0.4)),
     radial-gradient(circle at 50% 30%, #1b3a4b, #0c1620);
+}
+
+.interact {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  background: rgba(20, 32, 46, 0.9);
+  border: 1px solid rgba(160, 210, 255, 0.6);
+  color: #e8f2ff;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font: 600 13px/1 ui-monospace, monospace;
+  cursor: pointer;
+  animation: rise 0.18s ease-out;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .scene {

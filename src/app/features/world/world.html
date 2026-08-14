@@ -29,6 +29,10 @@
       <div class="scene" #viewport>
         <p class="placeholder">Initializing 3D world…</p>
       </div>
+      @if (interactionPrompt(); as prompt) {
+        <button class="interact" (click)="inspect()">{{ prompt }}</button>
+      }
+      <app-minimap />
     </main>
 
     <aside class="panel-right">

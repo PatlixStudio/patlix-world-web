@@ -22,11 +22,13 @@ import { Inspector } from './inspector/inspector';
 import { TaskPanel } from './task-panel/task-panel';
 import { PlanPanel } from './plan-panel/plan-panel';
 import { ChatFeed } from './chat-feed/chat-feed';
+import { Minimap } from './minimap/minimap';
+import { InteractionService } from '../../three/interaction.service';
 
 @Component({
   selector: 'app-world',
   standalone: true,
-  imports: [AgentList, Inspector, TaskPanel, PlanPanel, ChatFeed],
+  imports: [AgentList, Inspector, TaskPanel, PlanPanel, ChatFeed, Minimap],
   templateUrl: './world.html',
   styleUrl: './world.scss',
   providers: [{ provide: WORLD_ADAPTER, useClass: ThreeWorldAdapter }],
@@ -42,13 +44,25 @@ export class World implements OnInit {
     @Inject(WORLD_ADAPTER) private readonly adapter: WorldAdapter,
     private readonly renderer: RendererService,
     private readonly player: PlayerControllerService,
+    private readonly interactions: InteractionService,
     private readonly router: Router,
   ) {
+    window.addEventListener('keydown', (event) => {
+      if (event.code === 'KeyE') this.interactions.inspect();
+    });
     effect(() => {
       this.adapter.setZones(this.store.zones());
       this.adapter.setAgents(this.store.agents());
       this.adapter.setTasks(this.store.tasks());
     });
+  }
+
+  get interactionPrompt() {
+    return this.interactions.prompt;
+  }
+
+  inspect(): void {
+    this.interactions.inspect();
   }
 
   async ngOnInit(): Promise<void> {

@@ -1,4 +1,4 @@
-import { Injectable, type OnDestroy } from '@angular/core';
+import { Injectable, type OnDestroy, signal } from '@angular/core';
 import * as THREE from 'three';
 import * as RAPIER from '@dimforge/rapier3d-compat';
 import { CharacterManager } from '../characters/character-manager';
@@ -27,6 +27,10 @@ export class PlayerControllerService implements OnDestroy {
   private grounded = false;
   private justJumped = false;
   private lastAnimation = 'idle';
+  /** Live player state for HUD (minimap/compass/interaction). */
+  readonly position = signal({ x: 0, y: 0, z: 0 });
+  readonly heading = signal(0);
+  readonly moving = signal(false);
   private readonly frame = (delta: number, time: number): void => {
     this.step(delta, time);
   };
@@ -172,11 +176,14 @@ export class PlayerControllerService implements OnDestroy {
   ): void {
     if (!this.body || !this.character) return;
     const pos = this.body.translation();
+    this.position.set({ x: pos.x, y: pos.y, z: pos.z });
     this.character.group.position.set(pos.x, pos.y, pos.z);
     if (move.lengthSq() > 0.01) {
       const heading = Math.atan2(move.x, move.z);
       this.character.group.rotation.y = heading;
+      this.heading.set(heading);
     }
+    this.moving.set(move.lengthSq() > 0.01 && grounded);
     const anim = grounded ? (move.lengthSq() > 0.01 ? 'walk' : 'idle') : 'walk';
     if (anim !== this.lastAnimation) {
       this.lastAnimation = anim;

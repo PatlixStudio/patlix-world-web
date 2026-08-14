@@ -15,6 +15,8 @@ interface AgentEntry {
   pending: Promise<void> | null;
   anim: CharacterAnimation;
   heading: number;
+  travelTarget: THREE.Vector3 | null;
+  travelSpeed: number;
 }
 
 /**
@@ -30,6 +32,7 @@ export class ThreeWorldAdapter implements WorldAdapter, OnDestroy {
 
   private readonly frame = (delta: number, time: number): void => {
     for (const entry of this.agents.values()) {
+      this.travel(entry, delta);
       entry.character?.update(delta, time);
       entry.group.rotation.y = entry.heading;
     }
@@ -89,6 +92,8 @@ export class ThreeWorldAdapter implements WorldAdapter, OnDestroy {
       pending: null,
       anim,
       heading: agent.location.heading,
+      travelTarget: null,
+      travelSpeed: 3.2,
     };
     this.positionEntry(entry, agent);
     this.animateEntry(entry, agent);
@@ -117,6 +122,38 @@ export class ThreeWorldAdapter implements WorldAdapter, OnDestroy {
     const { x, y, z } = agent.location;
     const ground = this.environment.groundHeight(x, z);
     entry.group.position.set(x, ground + y + 1.05, z);
+    // Agents set to travel animate a walk toward their destination.
+    if (agent.status === 'NAVIGATING' || agent.status === 'ASSIGNED') {
+      entry.travelTarget = new THREE.Vector3(x, ground + y + 1.05, z);
+    } else {
+      entry.travelTarget = null;
+    }
+  }
+
+  /** Smooth waypoint travel for NAVIGATING/ASSIGNED agents. */
+  private travel(entry: AgentEntry, delta: number): void {
+    const target = entry.travelTarget;
+    if (!target) return;
+    const pos = entry.group.position;
+    const toTarget = target.clone().sub(pos);
+    const dist = toTarget.length();
+    if (dist < 0.05) {
+      entry.travelTarget = null;
+      return;
+    }
+    const step = entry.travelSpeed * delta;
+    if (step >= dist) {
+      pos.copy(target);
+      entry.travelTarget = null;
+      return;
+    }
+    toTarget.normalize().multiplyScalar(step);
+    pos.add(toTarget);
+    entry.heading = Math.atan2(toTarget.x, toTarget.z);
+    if (entry.character && entry.anim !== 'walk') {
+      entry.anim = 'walk';
+      entry.character.setAnimation('walk');
+    }
   }
 
   private animateEntry(entry: AgentEntry, agent: AgentDto): void {
