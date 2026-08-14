@@ -1,5 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken } from '@angular/core';
 import type { AgentDto, TaskDto, ZoneDto } from '@patlixworld/shared';
+
+/**
+ * Injection token for the renderer adapter so the World shell can depend on
+ * the interface while the concrete implementation stays swappable (console
+ * placeholder → Three.js).
+ */
+export const WORLD_ADAPTER = new InjectionToken<WorldAdapter>(
+  'patlix.world-adapter',
+);
 
 /**
  * Seam between WorldStateStore (state) and the 3D renderer (scene). The

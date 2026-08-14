@@ -29,6 +29,7 @@
                 "input": "public"
               }
             ],
+            "allowedCommonJsDependencies": ["@patlixworld/shared"],
             "styles": ["src/styles.scss"]
           },
           "configurations": {
