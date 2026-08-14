@@ -1,0 +1,33 @@
+{
+  "name": "patlix-world-web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/patlix-world-web/src",
+  "tags": ["scope:web"],
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/patlix-world-web",
+        "command": "npm start"
+      }
+    },
+    "lint": {
+      "executor": "nx:noop"
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/patlix-world-web",
+        "command": "npm run build"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/patlix-world-web",
+        "command": "npm test -- --watch=false"
+      }
+    }
+  }
+}
