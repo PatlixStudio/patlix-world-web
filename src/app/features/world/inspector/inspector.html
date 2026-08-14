@@ -1,0 +1,39 @@
+<section class="inspector">
+  @if (agent(); as a) {
+    <h2>Inspector</h2>
+    <div class="card">
+      <div class="head">
+        <span class="name">{{ a.name }}</span>
+        <span class="status {{ a.status.toLowerCase() }}">{{ a.status }}</span>
+      </div>
+      <div class="role">{{ a.role }}</div>
+      <p class="persona">{{ a.persona }}</p>
+      <dl>
+        <dt>Goal</dt>
+        <dd>{{ a.currentGoal || '—' }}</dd>
+        <dt>Activity</dt>
+        <dd>{{ a.currentActivity || '—' }}</dd>
+        <dt>Zone</dt>
+        <dd>{{ a.location.zoneId }} ({{ a.location.x | number:'1.0-0' }}, {{ a.location.z | number:'1.0-0' }})</dd>
+        <dt>Model</dt>
+        <dd>{{ a.model.provider }} / {{ a.model.model }}</dd>
+      </dl>
+    </div>
+
+    <h3 class="sub">Assigned tasks</h3>
+    <ul class="tasks">
+      @for (task of tasksFor(a.id); track task.id) {
+        <li>
+          <span class="tname">{{ task.title }}</span>
+          <span class="tstatus {{ task.status.toLowerCase() }}">{{ task.status }}</span>
+          <div class="bar"><span [style.width.%]="task.progress"></span></div>
+        </li>
+      } @empty {
+        <li class="empty">No tasks.</li>
+      }
+    </ul>
+  } @else {
+    <h2>Inspector</h2>
+    <p class="empty">Select an agent to inspect.</p>
+  }
+</section>

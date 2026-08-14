@@ -1,0 +1,43 @@
+<section class="feed">
+  <div class="tabs">
+    <button
+      [class.active]="tab() === 'chat'"
+      (click)="switchTab('chat')"
+    >
+      Activity
+    </button>
+    <button
+      [class.active]="tab() === 'events'"
+      (click)="switchTab('events')"
+    >
+      Event stream
+    </button>
+  </div>
+
+  <div class="body">
+    @if (tab() === 'chat') {
+      <ul class="messages">
+        @for (msg of messages(); track msg.id) {
+          <li>
+            <span class="who">{{ msg.agentName }}</span>
+            <span class="text">{{ msg.content }}</span>
+            <span class="when">{{ msg.timestamp | date:'HH:mm:ss' }}</span>
+          </li>
+        } @empty {
+          <li class="empty">Agent activity will appear here.</li>
+        }
+      </ul>
+    } @else {
+      <ul class="events">
+        @for (env of feed().slice().reverse(); track env.id) {
+          <li>
+            <span class="etype">{{ shortType(env.type) }}</span>
+            <span class="ewhen">{{ env.timestamp | date:'HH:mm:ss' }}</span>
+          </li>
+        } @empty {
+          <li class="empty">No events yet.</li>
+        }
+      </ul>
+    }
+  </div>
+</section>

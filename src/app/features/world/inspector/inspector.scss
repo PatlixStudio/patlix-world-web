@@ -1,0 +1,144 @@
+.inspector {
+  h2 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #93b6d6;
+  }
+
+  .card {
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(20, 34, 48, 0.7);
+    border: 1px solid rgba(120, 190, 255, 0.1);
+  }
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .name {
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .status {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #cfe6ff;
+      &.working {
+        background: rgba(255, 170, 90, 0.2);
+        color: #ffaa5a;
+      }
+      &.blocked {
+        background: rgba(255, 110, 100, 0.2);
+        color: #ff6e64;
+      }
+    }
+  }
+
+  .role {
+    margin-top: 2px;
+    font-size: 12px;
+    color: #7fb5ec;
+  }
+
+  .persona {
+    margin: 8px 0;
+    font-size: 12px;
+    color: #93b6d6;
+  }
+
+  dl {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 4px 10px;
+    font-size: 12px;
+
+    dt {
+      color: #6d92b4;
+    }
+    dd {
+      margin: 0;
+      color: #cfe6ff;
+    }
+  }
+
+  .sub {
+    margin: 14px 0 6px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #93b6d6;
+  }
+
+  ul.tasks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    li {
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: rgba(20, 34, 48, 0.55);
+      border: 1px solid rgba(120, 190, 255, 0.08);
+    }
+
+    .tname {
+      font-size: 12px;
+    }
+
+    .tstatus {
+      float: right;
+      font-size: 10px;
+      padding: 1px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #cfe6ff;
+      &.in_progress,
+      &.working {
+        background: rgba(255, 170, 90, 0.2);
+        color: #ffaa5a;
+      }
+      &.review {
+        background: rgba(255, 210, 120, 0.2);
+        color: #ffd278;
+      }
+      &.completed {
+        background: rgba(61, 220, 132, 0.2);
+        color: #3ddc84;
+      }
+      &.failed,
+      &.blocked {
+        background: rgba(255, 110, 100, 0.2);
+        color: #ff6e64;
+      }
+    }
+
+    .bar {
+      margin-top: 6px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.08);
+      span {
+        display: block;
+        height: 100%;
+        border-radius: 2px;
+        background: #4aa3ff;
+      }
+    }
+  }
+
+  .empty {
+    color: #6d92b4;
+    font-size: 12px;
+  }
+}

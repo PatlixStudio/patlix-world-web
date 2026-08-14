@@ -1,0 +1,87 @@
+.tasks {
+  h2 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #93b6d6;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  li {
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(20, 34, 48, 0.55);
+    border: 1px solid rgba(120, 190, 255, 0.08);
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+
+      .tname {
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .tstatus {
+        font-size: 10px;
+        padding: 1px 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #cfe6ff;
+        &.in_progress,
+        &.working {
+          background: rgba(255, 170, 90, 0.2);
+          color: #ffaa5a;
+        }
+        &.review {
+          background: rgba(255, 210, 120, 0.2);
+          color: #ffd278;
+        }
+        &.completed {
+          background: rgba(61, 220, 132, 0.2);
+          color: #3ddc84;
+        }
+        &.failed,
+        &.blocked {
+          background: rgba(255, 110, 100, 0.2);
+          color: #ff6e64;
+        }
+      }
+    }
+
+    .meta {
+      margin-top: 3px;
+      font-size: 11px;
+      color: #6d92b4;
+    }
+
+    .bar {
+      margin-top: 6px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.08);
+      span {
+        display: block;
+        height: 100%;
+        border-radius: 2px;
+        background: #4aa3ff;
+      }
+    }
+  }
+
+  .empty {
+    color: #6d92b4;
+    font-size: 12px;
+  }
+}

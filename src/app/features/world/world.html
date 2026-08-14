@@ -1,0 +1,44 @@
+<div class="world">
+  <header class="hud-top">
+    <div class="brand">
+      <span class="dot" [class.online]="connected()"></span>
+      <h1>Patlix World</h1>
+      @if (connected()) {
+        <span class="pill ok">live</span>
+      } @else {
+        <span class="pill warn">offline</span>
+      }
+    </div>
+    <div class="meta">
+      <span>{{ zones().length }} zones</span>
+      <span>{{ agents().length }} agents</span>
+      <span>{{ busyAgents() }} working</span>
+      @if (user(); as u) {
+        <span class="user">{{ u.displayName || u.email }}</span>
+      }
+      <button class="ghost" (click)="logout()">Leave</button>
+    </div>
+  </header>
+
+  <div class="hud">
+    <aside class="panel-left">
+      <app-agent-list />
+    </aside>
+
+    <main class="viewport">
+      <div class="scene">
+        <p class="placeholder">3D viewport mounts here in M5.</p>
+      </div>
+    </main>
+
+    <aside class="panel-right">
+      <app-inspector />
+      <app-task-panel />
+      <app-plan-panel />
+    </aside>
+  </div>
+
+  <footer class="hud-bottom">
+    <app-chat-feed />
+  </footer>
+</div>

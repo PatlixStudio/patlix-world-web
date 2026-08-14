@@ -1,0 +1,97 @@
+.login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 20%, #1b3a4b, #0c1620 60%, #060b10);
+}
+
+.card {
+  width: min(380px, 90vw);
+  padding: 32px;
+  border-radius: 16px;
+  background: rgba(15, 26, 36, 0.85);
+  border: 1px solid rgba(120, 190, 255, 0.18);
+  backdrop-filter: blur(8px);
+  color: #e8f2ff;
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: 26px;
+    letter-spacing: 0.5px;
+  }
+
+  .subtitle {
+    margin: 0 0 24px;
+    color: #93b6d6;
+    font-size: 13px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #93b6d6;
+    }
+
+    input {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(120, 190, 255, 0.25);
+      background: rgba(0, 0, 0, 0.35);
+      color: #e8f2ff;
+      font-size: 14px;
+
+      &:focus {
+        outline: none;
+        border-color: #4aa3ff;
+      }
+    }
+
+    .error {
+      margin: 8px 0 0;
+      color: #ff8a7a;
+      font-size: 13px;
+    }
+
+    button {
+      margin-top: 18px;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2f7fd9, #1f5fae);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: default;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+
+    .ghost {
+      background: none;
+      border: none;
+      color: #7fb5ec;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 4px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

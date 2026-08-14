@@ -1,0 +1,131 @@
+.plans {
+  h2 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #93b6d6;
+  }
+
+  .request {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+
+    input {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(120, 190, 255, 0.2);
+      background: rgba(0, 0, 0, 0.35);
+      color: #e8f2ff;
+      font-size: 12px;
+
+      &:focus {
+        outline: none;
+        border-color: #4aa3ff;
+      }
+    }
+
+    button {
+      padding: 9px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #2f7fd9, #1f5fae);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: default;
+      }
+    }
+
+    .error {
+      margin: 0;
+      color: #ff8a7a;
+      font-size: 12px;
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  li {
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(20, 34, 48, 0.55);
+    border: 1px solid rgba(120, 190, 255, 0.08);
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+
+      .ptitle {
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .pstatus {
+        font-size: 10px;
+        padding: 1px 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #cfe6ff;
+        &.active {
+          background: rgba(61, 220, 132, 0.2);
+          color: #3ddc84;
+        }
+      }
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      padding: 2px 0;
+
+      .sdot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #4a5568;
+        &.assigned {
+          background: #ffd278;
+        }
+        &.in_progress {
+          background: #ffaa5a;
+        }
+        &.completed {
+          background: #3ddc84;
+        }
+      }
+
+      .stext {
+        color: #cfe6ff;
+        flex: 1;
+      }
+
+      .srole {
+        color: #6d92b4;
+      }
+    }
+  }
+
+  .empty {
+    color: #6d92b4;
+    font-size: 12px;
+  }
+}

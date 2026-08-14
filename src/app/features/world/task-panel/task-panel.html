@@ -1,0 +1,19 @@
+<section class="tasks">
+  <h2>Tasks</h2>
+  <ul>
+    @for (task of tasks(); track task.id) {
+      <li>
+        <div class="row">
+          <span class="tname">{{ task.title }}</span>
+          <span class="tstatus {{ statusClass(task.status) }}">{{ task.status }}</span>
+        </div>
+        @if (task.assignedAgentId) {
+          <div class="meta">→ {{ agentName(task.assignedAgentId) }}</div>
+        }
+        <div class="bar"><span [style.width.%]="task.progress"></span></div>
+      </li>
+    } @empty {
+      <li class="empty">No tasks yet.</li>
+    }
+  </ul>
+</section>

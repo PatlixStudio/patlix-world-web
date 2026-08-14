@@ -1,0 +1,59 @@
+<section class="login">
+  <div class="card">
+    <h1>Patlix World</h1>
+    <p class="subtitle">A living world where real AI agents do real work.</p>
+
+    <form (ngSubmit)="submit()">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        [ngModel]="email()"
+        (ngModelChange)="email.set($event)"
+        name="email"
+        autocomplete="email"
+        required
+      />
+
+      @if (!isLogin()) {
+        <label for="displayName">Display name</label>
+        <input
+          id="displayName"
+          type="text"
+          [ngModel]="displayName()"
+          (ngModelChange)="displayName.set($event)"
+          name="displayName"
+          autocomplete="nickname"
+        />
+      }
+
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        [ngModel]="password()"
+        (ngModelChange)="password.set($event)"
+        name="password"
+        autocomplete="current-password"
+        required
+      />
+
+      @if (error(); as message) {
+        <p class="error">{{ message }}</p>
+      }
+
+      <button type="submit" [disabled]="busy()">
+        {{ busy() ? 'Please wait…' : isLogin() ? 'Enter the world' : 'Create account' }}
+      </button>
+    </form>
+
+    <div class="actions">
+      <button type="button" class="ghost" (click)="fillDemo()">
+        Use demo account
+      </button>
+      <button type="button" class="ghost" (click)="toggleMode()">
+        {{ isLogin() ? 'Create an account' : 'Back to login' }}
+      </button>
+    </div>
+  </div>
+</section>

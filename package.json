@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^22.1.0",
     "@angular/router": "^22.1.0",
     "@dimforge/rapier3d-compat": "^0.14.0",
+    "@patlixworld/shared": "file:../../libs/patlix-world-shared",
     "@types/three": "^0.185.4",
     "rxjs": "~7.8.0",
     "socket.io-client": "^4.8.3",
@@ -34,5 +35,8 @@
     "prettier": "^3.8.1",
     "typescript": "~6.0.2",
     "vitest": "^4.0.8"
+  },
+  "allowScripts": {
+    "@patlixworld/shared@0.1.0": true
   }
 }

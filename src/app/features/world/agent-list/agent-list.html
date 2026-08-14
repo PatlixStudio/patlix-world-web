@@ -1,0 +1,22 @@
+<section class="agents">
+  <h2>Workforce</h2>
+  <ul>
+    @for (agent of agents(); track agent.id) {
+      <li
+        [class.selected]="selectedId() === agent.id"
+        (click)="select(agent.id)"
+      >
+        <div class="row">
+          <span class="name">{{ agent.name }}</span>
+          <span class="status {{ statusClass(agent.status) }}">{{ agent.status }}</span>
+        </div>
+        <div class="role">{{ agent.role }}</div>
+        @if (agent.currentActivity) {
+          <div class="activity">{{ agent.currentActivity }}</div>
+        }
+      </li>
+    } @empty {
+      <li class="empty">No agents yet.</li>
+    }
+  </ul>
+</section>

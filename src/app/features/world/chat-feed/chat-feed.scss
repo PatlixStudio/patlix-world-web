@@ -1,0 +1,89 @@
+.feed {
+  display: flex;
+  flex-direction: column;
+  max-height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(120, 190, 255, 0.12);
+  background: rgba(10, 20, 30, 0.92);
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    padding: 6px 10px;
+    border-bottom: 1px solid rgba(120, 190, 255, 0.1);
+
+    button {
+      background: none;
+      border: none;
+      color: #6d92b4;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+
+      &.active {
+        color: #cfe6ff;
+        background: rgba(74, 163, 255, 0.15);
+      }
+    }
+  }
+
+  .body {
+    overflow-y: auto;
+    min-height: 0;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .messages li {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      font-size: 12px;
+
+      .who {
+        color: #7fb5ec;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .text {
+        color: #dcebfc;
+        flex: 1;
+        word-break: break-word;
+      }
+      .when {
+        color: #4a5568;
+        font-size: 10px;
+        white-space: nowrap;
+      }
+    }
+
+    .events li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-family: ui-monospace, monospace;
+
+      .etype {
+        color: #7fb5ec;
+      }
+      .ewhen {
+        color: #4a5568;
+      }
+    }
+
+    .empty {
+      color: #4a5568;
+      font-size: 12px;
+    }
+  }
+}

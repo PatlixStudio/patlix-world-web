@@ -1,0 +1,45 @@
+<section class="plans">
+  <h2>Aurel — plans</h2>
+
+  <form class="request" (ngSubmit)="submit()">
+    <input
+      placeholder="Ask Aurel… e.g. Fix the login bug"
+      [ngModel]="title()"
+      (ngModelChange)="title.set($event)"
+      name="title"
+      required
+    />
+    <input
+      placeholder="Details (optional)"
+      [ngModel]="description()"
+      (ngModelChange)="description.set($event)"
+      name="description"
+    />
+    @if (error(); as message) {
+      <p class="error">{{ message }}</p>
+    }
+    <button type="submit" [disabled]="busy() || !title().trim()">
+      {{ busy() ? 'Planning…' : 'Plan & assign' }}
+    </button>
+  </form>
+
+  <ul>
+    @for (plan of plans(); track plan.id) {
+      <li>
+        <div class="row">
+          <span class="ptitle">{{ plan.requestTitle }}</span>
+          <span class="pstatus {{ statusClass(plan.status) }}">{{ plan.status }}</span>
+        </div>
+        @for (step of plan.steps; track step.id) {
+          <div class="step">
+            <span class="sdot {{ statusClass(step.status) }}"></span>
+            <span class="stext">{{ step.title }}</span>
+            <span class="srole">{{ step.role }}</span>
+          </div>
+        }
+      </li>
+    } @empty {
+      <li class="empty">No plans yet. Ask Aurel something.</li>
+    }
+  </ul>
+</section>
