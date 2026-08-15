@@ -55,8 +55,8 @@ const WORLD = { min: -48, max: 48 };
     }
     canvas {
       display: block;
-      width: 180px;
-      height: 180px;
+      width: 200px;
+      height: 200px;
       border-radius: 6px;
       cursor: crosshair;
     }
@@ -174,6 +174,7 @@ export class Minimap implements OnInit, OnDestroy {
     ctx.fillStyle = '#0c1a26';
     ctx.fillRect(0, 0, size, size);
 
+    // Draw zones with labels
     for (const zone of this.zones) {
       const cx = (zone.center.x - min) * scale;
       const cy = size - (zone.center.z - min) * scale;
@@ -187,6 +188,13 @@ export class Minimap implements OnInit, OnDestroy {
       ctx.strokeStyle = 'rgba(150,200,255,0.5)';
       ctx.lineWidth = 1;
       ctx.stroke();
+      
+      // Draw zone label
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 10px ui-monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(zone.name, cx, cy);
     }
 
     for (const agent of this.agents) {
@@ -215,14 +223,34 @@ export class Minimap implements OnInit, OnDestroy {
     const pz = size - (this.player.z - min) * scale;
     ctx.save();
     ctx.translate(px, pz);
-    ctx.rotate(this.player.heading);
-    ctx.fillStyle = '#ffe14a';
+    // World heading 0 = +z = "down" on the map (+y down canvas). The base
+    // triangle points up (-y), so the rotation that points it along the
+    // player's facing is (PI - heading).
+    ctx.rotate(Math.PI - this.player.heading);
+
+    ctx.fillStyle = 'rgba(255, 225, 74, 0.16)';
     ctx.beginPath();
-    ctx.moveTo(0, -5);
-    ctx.lineTo(4, 4);
-    ctx.lineTo(-4, 4);
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, 14, -0.55, 0.55);
     ctx.closePath();
     ctx.fill();
+
+    ctx.fillStyle = '#ffe14a';
+    ctx.strokeStyle = '#1c2b38';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(0, -6);
+    ctx.lineTo(4.5, 5);
+    ctx.lineTo(-4.5, 5);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.strokeStyle = 'rgba(255, 225, 74, 0.6)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(0, 0, 8, 0, Math.PI * 2);
+    ctx.stroke();
     ctx.restore();
   }
 
