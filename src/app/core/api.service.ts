@@ -53,11 +53,22 @@ export class ApiService {
   orchestrate(request: {
     title: string;
     description?: string;
+    requireApproval?: boolean;
   }): Promise<unknown> {
     return this.request('/orchestration/requests', {
       method: 'POST',
       body: JSON.stringify(request),
     });
+  }
+
+  /** Approve a pending plan → assignment + real execution begin. */
+  approvePlan(id: string): Promise<unknown> {
+    return this.request(`/orchestration/plans/${id}/approve`, { method: 'POST' });
+  }
+
+  /** Reject a pending plan (no work is performed). */
+  rejectPlan(id: string): Promise<unknown> {
+    return this.request(`/orchestration/plans/${id}/reject`, { method: 'POST' });
   }
 
   listPlans(): Promise<unknown[]> {

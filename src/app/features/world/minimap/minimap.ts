@@ -11,7 +11,7 @@ import { PlayerControllerService } from '../../../three/player/player-controller
 import { RendererService } from '../../../three/renderer.service';
 import { WaypointService } from '../../../three/waypoint.service';
 
-/** World extent for map projection (matches terrain bounds). */
+/** World extent for map projection; auto-fit to the zone bounds. */
 const WORLD = { min: -48, max: 48 };
 
 /**
@@ -92,6 +92,7 @@ export class Minimap implements OnInit, OnDestroy {
   private zones: ZoneDto[] = [];
   private agents: AgentDto[] = [];
   private player = { x: 0, z: 0, heading: 0 };
+  private bounds = { ...WORLD };
   private readonly frame = (): void => this.draw();
 
   constructor(
@@ -115,14 +116,36 @@ export class Minimap implements OnInit, OnDestroy {
     this.agents = this.store.agents();
     const p = this.playerService.position();
     this.player = { x: p.x, z: p.z, heading: this.playerService.heading() };
+    if (this.zones.length > 0) {
+      let minX = Infinity;
+      let maxX = -Infinity;
+      let minZ = Infinity;
+      let maxZ = -Infinity;
+      for (const zone of this.zones) {
+        minX = Math.min(minX, zone.center.x - zone.radius);
+        maxX = Math.max(maxX, zone.center.x + zone.radius);
+        minZ = Math.min(minZ, zone.center.z - zone.radius);
+        maxZ = Math.max(maxZ, zone.center.z + zone.radius);
+      }
+      minX = Math.min(minX, this.player.x);
+      maxX = Math.max(maxX, this.player.x);
+      minZ = Math.min(minZ, this.player.z);
+      maxZ = Math.max(maxZ, this.player.z);
+      const pad = Math.max(maxX - minX, maxZ - minZ) * 0.06 + 10;
+      this.bounds = {
+        min: Math.min(minX - pad, -48),
+        max: Math.max(maxX + pad, 48),
+      };
+    }
   }
 
   onClick(event: MouseEvent): void {
     const rect = this.canvasRef.nativeElement.getBoundingClientRect();
     const nx = (event.clientX - rect.left) / rect.width;
     const ny = (event.clientY - rect.top) / rect.height;
-    const x = WORLD.min + nx * (WORLD.max - WORLD.min);
-    const z = WORLD.max - ny * (WORLD.max - WORLD.min);
+    const { min, max } = this.bounds;
+    const x = min + nx * (max - min);
+    const z = max - ny * (max - min);
     this.waypoints.set(x, z, 'Waypoint');
   }
 
@@ -145,7 +168,7 @@ export class Minimap implements OnInit, OnDestroy {
     if (!ctx) return;
     this.update();
     const size = 180;
-    const { min, max } = WORLD;
+    const { min, max } = this.bounds;
     const scale = size / (max - min);
     ctx.clearRect(0, 0, size, size);
     ctx.fillStyle = '#0c1a26';

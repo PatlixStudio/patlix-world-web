@@ -23,12 +23,21 @@ import { TaskPanel } from './task-panel/task-panel';
 import { PlanPanel } from './plan-panel/plan-panel';
 import { ChatFeed } from './chat-feed/chat-feed';
 import { Minimap } from './minimap/minimap';
+import { Timeline } from './timeline/timeline';
 import { InteractionService } from '../../three/interaction.service';
 
 @Component({
   selector: 'app-world',
   standalone: true,
-  imports: [AgentList, Inspector, TaskPanel, PlanPanel, ChatFeed, Minimap],
+  imports: [
+    AgentList,
+    Inspector,
+    TaskPanel,
+    PlanPanel,
+    ChatFeed,
+    Minimap,
+    Timeline,
+  ],
   templateUrl: './world.html',
   styleUrl: './world.scss',
   providers: [{ provide: WORLD_ADAPTER, useClass: ThreeWorldAdapter }],

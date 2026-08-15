@@ -30,6 +30,22 @@
           <span class="ptitle">{{ plan.requestTitle }}</span>
           <span class="pstatus {{ statusClass(plan.status) }}">{{ plan.status }}</span>
         </div>
+        @if (plan.requestDescription) {
+          <p class="pdesc">{{ plan.requestDescription }}</p>
+        }
+        @if (isPendingApproval(plan)) {
+          <div class="approval">
+            <span class="hint">Awaiting approval — real work starts after you approve.</span>
+            <div class="actions">
+              <button class="ok" [disabled]="actingOn() === plan.id" (click)="approve(plan)">
+                {{ actingOn() === plan.id ? 'Starting…' : 'Approve & run' }}
+              </button>
+              <button class="no" [disabled]="actingOn() === plan.id" (click)="reject(plan)">
+                Reject
+              </button>
+            </div>
+          </div>
+        }
         @for (step of plan.steps; track step.id) {
           <div class="step">
             <span class="sdot {{ statusClass(step.status) }}"></span>

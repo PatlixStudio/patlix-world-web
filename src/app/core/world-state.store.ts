@@ -68,6 +68,11 @@ export class WorldStateStore {
     this.tasks.set(snapshot.tasks);
   }
 
+  /** Replace the Aurel plans list (REST fetch before the live stream). */
+  setPlans(plans: PlanDto[]): void {
+    this.plans.set(plans);
+  }
+
   selectAgent(id: string | null): void {
     this.selectedAgentId.set(id);
   }

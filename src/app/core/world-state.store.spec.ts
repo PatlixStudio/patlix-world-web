@@ -148,4 +148,20 @@ describe('WorldStateStore', () => {
     expect(step.status).toBe('ASSIGNED');
     expect(step.taskId).toBe('t-1');
   });
+
+  it('replaces the plan list via setPlans', () => {
+    store.setPlans([
+      {
+        id: 'p-9',
+        requestTitle: 'Footer',
+        requestDescription: '',
+        status: PlanStatus.PENDING_APPROVAL,
+        steps: [],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+    ]);
+    expect(store.plans()[0].status).toBe(PlanStatus.PENDING_APPROVAL);
+    expect(store.plans().length).toBe(1);
+  });
 });
