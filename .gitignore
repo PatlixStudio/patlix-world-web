@@ -5,4 +5,4 @@ coverage/
 .DS_Store
 .angular/
 .vscode/*
-!.vscode/extensions.json
+!.vscode/extensions.json*.tsbuildinfo

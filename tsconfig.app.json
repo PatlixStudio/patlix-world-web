@@ -4,5 +4,10 @@
     "types": []
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.spec.ts"]
+  "exclude": ["src/**/*.spec.ts"],
+  "references": [
+    {
+      "path": "../../libs/patlix-world-shared/tsconfig.build.json"
+    }
+  ]
 }

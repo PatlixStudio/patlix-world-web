@@ -28,6 +28,13 @@
         "cwd": "apps/patlix-world-web",
         "command": "npm test -- --watch=false"
       }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/patlix-world-web",
+        "command": "npx tsc -p tsconfig.app.json --noEmit"
+      }
     }
   }
 }
