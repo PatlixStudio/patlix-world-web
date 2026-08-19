@@ -23,10 +23,10 @@ Shared character rig + animation library for BOTH player and AI.
 
 ```bash
 npm install
-npm start    # http://localhost:4203 (API on :3003)
+npm start    # http://localhost:4204 (API on :3004)
 ```
 
-Ports: `4203` (web) / `3003` (api) — arkadion uses :4201/:3000, falina :4202/:3002.
+Ports: `4204` (web) / `3004` (api) — arkadion uses :4201/:3001, falina :4202/:3002, aurel-dashboard :4203/:3003.
 
 ## Milestones (build order)
 
@@ -36,5 +36,6 @@ Ports: `4203` (web) / `3003` (api) — arkadion uses :4201/:3000, falina :4202/:
 - M7 player controller + third-person camera + Rapier physics
 - M8 AI behavior controller + minimap/waypoint/compass + interaction prompts
 - M9 end-to-end scenario + observability + approvals
+- M10 hardening: minimap zone labels, Rapier 0.20 heightfield migration, port migration (4204/3004), camera-relative forward fix
 
 See `PATLIX_WORLD_DECISIONS.md` at the workspace root for the full decision log.
