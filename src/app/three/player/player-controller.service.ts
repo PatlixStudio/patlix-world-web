@@ -81,22 +81,20 @@ export class PlayerControllerService implements OnDestroy {
     const nrows = 96;
     const ncols = 96;
     const size = 900;
-    const heights = new Float32Array(nrows * ncols);
-    const cell = size / (ncols - 1);
-    for (let i = 0; i < nrows; i++) {
-      for (let j = 0; j < ncols; j++) {
+    const heights = new Float32Array((nrows + 1) * (ncols + 1));
+    const cell = size / ncols;
+    for (let i = 0; i <= nrows; i++) {
+      for (let j = 0; j <= ncols; j++) {
         const x = -size / 2 + j * cell;
         const z = -size / 2 + i * cell;
-        heights[i * ncols + j] = this.environment.groundHeight(x, z);
+        heights[j * (nrows + 1) + i] = this.environment.groundHeight(x, z);
       }
     }
-    const scale = { x: cell, y: 1, z: cell };
-    const collider = RAPIER.ColliderDesc.heightfield(nrows, ncols, heights, scale);
-    // Center the heightfield on the world origin.
-    collider.setTranslation(
-      -size / 2 + cell / 2,
-      0,
-      -size / 2 + cell / 2,
+    const collider = RAPIER.ColliderDesc.heightfield(
+      nrows,
+      ncols,
+      heights,
+      { x: size, y: 1, z: size },
     );
     this.physics.createCollider(collider);
   }
@@ -110,8 +108,9 @@ export class PlayerControllerService implements OnDestroy {
     const yaw = this.input.orbitYaw;
     const sin = Math.sin(yaw);
     const cos = Math.cos(yaw);
-    // Camera-relative forward on the ground plane.
-    const forward = new THREE.Vector3(sin, 0, cos);
+    // Camera sits at (sin, 0, cos) behind the player, so "forward" is away
+    // from the camera (where the user is looking).
+    const forward = new THREE.Vector3(-sin, 0, -cos);
     const right = new THREE.Vector3(cos, 0, -sin);
 
     const move = new THREE.Vector3();

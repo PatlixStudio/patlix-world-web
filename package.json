@@ -19,7 +19,7 @@
     "@angular/material": "^22.1.1",
     "@angular/platform-browser": "^22.1.0",
     "@angular/router": "^22.1.0",
-    "@dimforge/rapier3d-compat": "^0.14.0",
+    "@dimforge/rapier3d-compat": "^0.20.0",
     "@patlixworld/shared": "file:../../libs/patlix-world-shared",
     "@types/three": "^0.185.4",
     "rxjs": "~7.8.0",
